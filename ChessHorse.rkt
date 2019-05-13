@@ -1,5 +1,4 @@
 #lang racket
-
 ;; Tarea Progamada Problema del Caballo
 ;; Prof: Marco Vinicio
 ;; Alumnos: Dario Rodríguez
@@ -12,8 +11,8 @@
 (require (lib "graphics.ss" "graphics")) ;; Se importa la librería graphics para desarrollar la interfaz gráfica.
 (open-graphics) ;; Se abre el modo gráfico de DrRacket.
 
-(define wide 800) ;; Ancho de la ventana.
-(define height 800) ;; Alto de la ventana.
+(define wide 640) ;; Ancho de la ventana.
+(define height 640) ;; Alto de la ventana.
 
 (define horseWindow (open-viewport "ChessHorse" wide height)) ;; Se crea la ventana, se define su nombre y tamaño.
 (define horseBackup (open-pixmap "ChessHorse" wide height)) ;; Se crea la ventana de respaldo, se define su nombre y tamaño.
@@ -22,7 +21,8 @@
 (define h 0) ;;Posicion del tablero en X.
 (define v 0) ;; Posicion del tablero en Y.
 
-(define verde "DarkGreen") ;; Cuadros verdes.
+(define verde "DarkGreen");; Cuadros verdes.
+(define azul "blue");;Cuadro Azul
 
 ;;###################################################################################################################################################################################
 
@@ -36,7 +36,9 @@
 (define (PDC-PaintAux matrixSol n m) ;; Función auxiliar.
   (cond (( > m (* n n)) (display "Endgame")) ;; Si llega al final de la solución, imprime en consola un mensaje de finalización.
         ;; Busca la posición i j siguiente en la ruta y lo dibuja en la ventana.
-        (else (sleep 1)(horseMovement n (second(findPM matrixSol 0 0 #f m)) (first(findPM matrixSol 0 0 #f m)) verde) (PDC-PaintAux matrixSol n (+ m 1)))))
+        (else
+         (horseMovement n (second(findPM matrixSol 0 0 #f m)) (first(findPM matrixSol 0 0 #f m)) verde)
+         (sleep 1)(horseMovement n (second(findPM matrixSol 0 0 #f m)) (first(findPM matrixSol 0 0 #f m)) azul) (PDC-PaintAux matrixSol n (+ m 1)))))
 
 ;;###################################################################################################################################################################################
 
@@ -58,7 +60,7 @@
 ;;################################################################################### Pinta cuadro ##################################################################################
 
 (define (horseMovement n i j color) ;; Función que se encarga de pintar un cuadro verde en las posiciones hacia donde se desplaza el caballo.
-  ((draw-solid-rectangle horseBackup) (make-posn  (* i (/ wide n))(* j (/ height n))) (- (/ wide n) 1) (- (/ height n) 1) verde) ;; Dibuja un rectángulo en una posición i j dada.
+  ((draw-solid-rectangle horseBackup) (make-posn  (* i (/ wide n))(* j (/ height n))) (- (/ wide n) 1) (- (/ height n) 1) color) ;; Dibuja un rectángulo en una posición i j dada.
   (copy-viewport horseBackup horseWindow)) ; Se copia lo de la ventana de respaldo donde realiza los movimentos nuevos a la ventana principal donde muestra todo el recorrido.
 
 ;;###################################################################################################################################################################################
