@@ -2,8 +2,8 @@
 ;; Tarea Progamada Problema del Caballo
 ;; Prof: Marco Vinicio
 ;; Alumnos: Dario Rodríguez
-;;          Jonathan Guzmán
-;;          Kenneth Hernández
+;;                 Jonathan Guzmán
+;;                 Kenneth Hernández
 
 ;;##########################################################################Definición de variables para GUI#########################################################################
 
